@@ -2,7 +2,7 @@
 
 使用方法：
     1. 复制 .env.example 为 .env，填入你的 DEEPSEEK_API_KEY
-    2. 运行：python examples/deepseek_chat.py
+    2. 运行：python -m agents.deepseek.demo
 
 注意：
     - 不要将真实 API Key 写入代码或提交到仓库
@@ -32,7 +32,7 @@ def chat_completion(
     client: OpenAI,
     messages: list[dict[str, str]],
     model: str = "deepseek-v4-pro",
-    stream: bool = False,
+    stream: bool = True,
 ) -> str:
     """发送聊天请求并返回回复内容。
 
@@ -77,16 +77,15 @@ def main() -> None:
 
     print(f"使用模型：{model}\n")
 
-    # 非流式输出
-    print("--- 非流式输出 ---")
-    reply = chat_completion(client, messages, model=model, stream=False)
-    print(f"助手：{reply}\n")
-
-    # 流式输出
+    # 流式输出（默认开启）
     print("--- 流式输出 ---")
-    messages[1]["content"] = "用一句话总结 MoE 架构的优势。"
     chat_completion(client, messages, model=model, stream=True)
 
 
-if __name__ == "__main__":
+def run() -> None:
+    """Agent 风格的统一入口。"""
     main()
+
+
+if __name__ == "__main__":
+    run()
