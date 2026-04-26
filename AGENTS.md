@@ -37,6 +37,10 @@ git checkout -b feature/add-xxx
 
 # 3. 修改文件、本地验证
 
+# 3.5 代码格式化（如包含 Python 文件）
+ruff format .
+ruff check --fix .
+
 # 4. 提交（遵循 Commit Message 规范）
 git add <文件>
 git commit -m "type: 描述"
@@ -88,6 +92,7 @@ git push -u origin feature/add-xxx
 3. **中文优先**：所有文档、注释、Commit Message 使用中文。
 4. **最小变更**：每次 PR 聚焦单一目标，避免大杂烩式提交。
 5. **绝不直推 main**：无论多小的改动，都必须走分支 + PR 流程。
+6. **提交前格式化**：涉及 Python 代码的变更，提交前必须执行 `ruff format .` 和 `ruff check --fix .`，确保代码风格统一。
 
 ---
 

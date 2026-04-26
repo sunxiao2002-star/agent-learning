@@ -6,23 +6,23 @@ Usage:
     python convert.py input.md --style academic --output out.html
     python convert.py input.md --css custom.css --output out.html
 """
+
 import argparse
 import os
-import sys
 import re
-import markdown
+import sys
 from pathlib import Path
 
-PRESET_STYLES = {
-    "minimal", "academic", "business", "dark", "elegant", "magazine"
-}
+import markdown
+
+PRESET_STYLES = {"minimal", "academic", "business", "dark", "elegant", "magazine"}
 
 KATEX_CSS = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">'
-KATEX_JS = '''
+KATEX_JS = """
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
     onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
-'''
+"""
 
 HLJS_CSS = '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">'
 HLJS_CSS_DARK = '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">'
@@ -40,7 +40,10 @@ def load_preset_css(style: str) -> str:
 
 def detect_math(md_text: str) -> bool:
     """Detect if markdown contains LaTeX math."""
-    return bool(re.search(r'\$\$.+?\$\$', md_text, re.DOTALL) or re.search(r'(?<!\$)\$(?!\$).+?\$', md_text, re.DOTALL))
+    return bool(
+        re.search(r"\$\$.+?\$\$", md_text, re.DOTALL)
+        or re.search(r"(?<!\$)\$(?!\$).+?\$", md_text, re.DOTALL)
+    )
 
 
 def make_toc(html: str) -> str:
@@ -52,14 +55,31 @@ def make_toc(html: str) -> str:
     for level, hid, title in headings:
         indent = "toc-h2" if level == "2" else "toc-h3"
         items.append(f'<a class="{indent}" href="#{hid}">{title}</a>')
-    return '<nav id="toc"><div class="toc-title">目录</div>' + "\n".join(items) + "</nav>"
+    return (
+        '<nav id="toc"><div class="toc-title">目录</div>' + "\n".join(items) + "</nav>"
+    )
 
 
-def convert(md_text: str, style: str = "minimal", title: str = "", custom_css: str = "", math: bool = False, toc: bool = False, no_highlight: bool = False) -> str:
+def convert(
+    md_text: str,
+    style: str = "minimal",
+    title: str = "",
+    custom_css: str = "",
+    math: bool = False,
+    toc: bool = False,
+    no_highlight: bool = False,
+) -> str:
     """Convert markdown text to a full HTML document."""
-    md = markdown.Markdown(extensions=[
-        "extra", "toc", "tables", "fenced_code", "nl2br", "sane_lists",
-    ])
+    md = markdown.Markdown(
+        extensions=[
+            "extra",
+            "toc",
+            "tables",
+            "fenced_code",
+            "nl2br",
+            "sane_lists",
+        ]
+    )
 
     body = md.convert(md_text)
     md.reset()
@@ -77,7 +97,9 @@ def convert(md_text: str, style: str = "minimal", title: str = "", custom_css: s
 
     toc_html = ""
     if toc:
-        md2 = markdown.Markdown(extensions=["extra", "toc", "tables", "fenced_code", "nl2br", "sane_lists"])
+        md2 = markdown.Markdown(
+            extensions=["extra", "toc", "tables", "fenced_code", "nl2br", "sane_lists"]
+        )
         body_with_ids = md2.convert(md_text)
         toc_html = make_toc(body_with_ids)
         body = body_with_ids
@@ -88,7 +110,7 @@ def convert(md_text: str, style: str = "minimal", title: str = "", custom_css: s
         "<head>",
         '<meta charset="UTF-8">',
         '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
-        f'<title>{resolved_title}</title>',
+        f"<title>{resolved_title}</title>",
         "\n".join(resources),
         "<style>",
         preset_css,
@@ -118,12 +140,21 @@ def main():
     parser = argparse.ArgumentParser(description="Convert Markdown to beautiful HTML")
     parser.add_argument("input", help="Input markdown file path")
     parser.add_argument("-o", "--output", help="Output HTML file path")
-    parser.add_argument("--style", default="minimal", choices=sorted(PRESET_STYLES), help="Preset visual style")
+    parser.add_argument(
+        "--style",
+        default="minimal",
+        choices=sorted(PRESET_STYLES),
+        help="Preset visual style",
+    )
     parser.add_argument("--title", default="", help="HTML document title")
     parser.add_argument("--css", default="", help="Path to custom CSS file to inject")
-    parser.add_argument("--math", action="store_true", help="Enable KaTeX math rendering")
+    parser.add_argument(
+        "--math", action="store_true", help="Enable KaTeX math rendering"
+    )
     parser.add_argument("--toc", action="store_true", help="Generate table of contents")
-    parser.add_argument("--no-highlight", action="store_true", help="Disable syntax highlighting")
+    parser.add_argument(
+        "--no-highlight", action="store_true", help="Disable syntax highlighting"
+    )
     args = parser.parse_args()
 
     if not os.path.exists(args.input):
