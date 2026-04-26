@@ -41,14 +41,19 @@ git checkout -b feature/add-xxx
 ruff format .
 ruff check --fix .
 
-# 4. 提交（遵循 Commit Message 规范）
+# 4. 向用户确认变更内容
+# 展示修改的文件列表和关键 diff，等待用户二次确认后再执行提交
+git status
+git diff --cached
+
+# 5. 提交（遵循 Commit Message 规范，经用户确认后执行）
 git add <文件>
 git commit -m "type: 描述"
 
-# 5. 推送到远程同名分支
+# 6. 推送到远程同名分支
 git push -u origin feature/add-xxx
 
-# 6. 在 GitHub 上发起 Pull Request，目标分支为 main
+# 7. 在 GitHub 上发起 Pull Request，目标分支为 main
 # 7. 合并后，本地清理分支
 ```
 
@@ -93,6 +98,7 @@ git push -u origin feature/add-xxx
 4. **最小变更**：每次 PR 聚焦单一目标，避免大杂烩式提交。
 5. **绝不直推 main**：无论多小的改动，都必须走分支 + PR 流程。
 6. **提交前格式化**：涉及 Python 代码的变更，提交前必须执行 `ruff format .` 和 `ruff check --fix .`，确保代码风格统一。
+7. **提交前用户二次确认**：执行 `git commit` 前，必须向用户展示变更内容（`git status` + `git diff`），获得明确确认后再提交。禁止在未经用户同意的情况下擅自 commit。
 
 ---
 
