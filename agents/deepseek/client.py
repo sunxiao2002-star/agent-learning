@@ -2,7 +2,7 @@
 
 提供可复用的 DeepSeekClient 类，支持：
 - 单轮/多轮对话
-- 流式/非流式输出
+- 流式输出（默认开启）
 - 自动重试与错误处理
 - 对话历史持久化
 """
@@ -39,7 +39,7 @@ class ChatConfig:
     base_url: str = "https://api.deepseek.com"
     temperature: float = 0.7
     max_tokens: int | None = None
-    stream: bool = False
+    stream: bool = True
     max_retries: int = 3
     retry_delay: float = 2.0
 

@@ -27,3 +27,6 @@ Thumbs.db
 dist/
 build/
 *.egg-info/
+
+# Auto-generated chat history
+chat_history*.json

@@ -22,7 +22,7 @@ from __future__ import annotations
 import os
 import sys
 
-from deepseek_client import ChatConfig, DeepSeekClient
+from .client import ChatConfig, DeepSeekClient
 
 
 def print_help() -> None:
@@ -48,7 +48,6 @@ def main() -> None:
 
     config = ChatConfig(
         model=os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-pro"),
-        stream=False,
     )
     client = DeepSeekClient(api_key=api_key, config=config)
 
@@ -137,22 +136,15 @@ def main() -> None:
             print(f"[系统] 未知命令：{cmd}，输入 /help 查看帮助。")
             continue
 
-        # 发送对话请求
+        # 发送对话请求（默认流式输出）
         try:
-            if client.config.stream:
-                print("助手：", end="", flush=True)
-                for part in client.chat_with_history_stream(
-                    user_input,
-                    system_prompt=system_prompt if not client.history else None,
-                ):
-                    print(part, end="", flush=True)
-                print()
-            else:
-                reply = client.chat_with_history(
-                    user_input,
-                    system_prompt=system_prompt if not client.history else None,
-                )
-                print(f"助手：{reply}")
+            print("助手：", end="", flush=True)
+            for part in client.chat_with_history_stream(
+                user_input,
+                system_prompt=system_prompt if not client.history else None,
+            ):
+                print(part, end="", flush=True)
+            print()
         except Exception as e:
             print(f"[错误] {e}", file=sys.stderr)
 
