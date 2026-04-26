@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+:root { --bg: #ffffff; --text: #1a1a1a; --text-secondary: #555555; --accent: #2563eb; --accent-light: #eff6ff; --border: #e5e7eb; --code-bg: #f8f9fa; }
+* { box-sizing: border-box; }
+body { font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif; background: #f6f7f9; color: var(--text); line-height: 1.75; margin: 0; padding: 0; }
+.markdown-body { max-width: 740px; margin: 48px auto; padding: 56px 64px; background: var(--bg); border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+h1, h2, h3, h4, h5, h6 { font-family: 'Noto Serif SC', serif; font-weight: 600; line-height: 1.3; margin-top: 2em; margin-bottom: 0.8em; }
+h1 { font-size: 2.2rem; font-weight: 700; margin-top: 0; border-bottom: 2px solid var(--border); padding-bottom: 0.4em; }
+h2 { font-size: 1.6rem; border-bottom: 1px solid var(--border); padding-bottom: 0.3em; }
+h3 { font-size: 1.25rem; color: var(--text-secondary); }
+p { margin: 1em 0; }
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+a:hover { border-bottom-color: var(--accent); }
+ul, ol { padding-left: 1.6em; margin: 1em 0; }
+li { margin: 0.4em 0; }
+blockquote { margin: 1.5em 0; padding: 1em 1.4em; border-left: 4px solid var(--accent); background: var(--accent-light); border-radius: 0 8px 8px 0; color: var(--text-secondary); }
+blockquote p { margin: 0.4em 0; }
+code { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.88em; background: var(--code-bg); padding: 0.2em 0.4em; border-radius: 4px; color: #d73a49; }
+pre { background: var(--code-bg); padding: 1.2em 1.4em; border-radius: 8px; overflow-x: auto; font-size: 0.9em; line-height: 1.6; border: 1px solid var(--border); }
+pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 0.95em; }
+th, td { padding: 0.75em 1em; border: 1px solid var(--border); text-align: left; }
+th { background: var(--code-bg); font-weight: 500; }
+tr:nth-child(even) { background: #fafbfc; }
+img { max-width: 100%; height: auto; border-radius: 8px; margin: 1em 0; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+#toc { position: fixed; top: 48px; right: 48px; width: 240px; max-height: 70vh; overflow-y: auto; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; font-size: 0.85em; line-height: 1.6; box-shadow: 0 4px 24px rgba(0,0,0,0.06); z-index: 10; }
+.toc-title { font-weight: 600; font-size: 1.05em; margin-bottom: 12px; color: var(--text); font-family: 'Noto Serif SC', serif; }
+#toc a { display: block; color: var(--text-secondary); padding: 4px 0; border: none; transition: color 0.2s; }
+#toc a:hover { color: var(--accent); }
+#toc .toc-h3 { padding-left: 1em; font-size: 0.95em; }
+@media (max-width: 1200px) { #toc { display: none; } }
+@media (max-width: 860px) { .markdown-body { margin: 24px; padding: 32px 28px; border-radius: 8px; } h1 { font-size: 1.8rem; } h2 { font-size: 1.4rem; } }
+@media (max-width: 480px) { .markdown-body { margin: 12px; padding: 24px 20px; } h1 { font-size: 1.6rem; } }
+@media print { body { background: white; } .markdown-body { box-shadow: none; margin: 0; max-width: none; } #toc { display: none; } }

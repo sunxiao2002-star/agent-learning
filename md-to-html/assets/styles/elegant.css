@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+:root { --bg: #faf9f7; --surface: #ffffff; --text: #2c2926; --text-secondary: #6e6a66; --accent: #8b5e3c; --accent-light: #f5efe8; --border: #e8e4df; --code-bg: #f5f3f0; --gold: #b8956b; }
+* { box-sizing: border-box; }
+body { font-family: 'Noto Serif SC', Georgia, serif; background: var(--bg); color: var(--text); line-height: 1.85; margin: 0; padding: 0; font-size: 16px; }
+.markdown-body { max-width: 720px; margin: 56px auto; padding: 64px 72px; background: var(--surface); border-radius: 2px; box-shadow: 0 2px 16px rgba(44,41,38,0.08); }
+h1, h2, h3, h4, h5, h6 { font-weight: 600; line-height: 1.25; color: var(--text); margin-top: 2.2em; margin-bottom: 0.7em; }
+h1 { font-size: 2.4rem; font-weight: 700; margin-top: 0; margin-bottom: 0.5em; letter-spacing: -0.02em; text-align: center; border-bottom: none; }
+h1::after { content: ''; display: block; width: 60px; height: 3px; background: var(--gold); margin: 0.6em auto 0; }
+h2 { font-size: 1.5rem; font-weight: 600; margin-top: 2.5em; padding-bottom: 0.4em; border-bottom: 1px solid var(--border); letter-spacing: -0.01em; }
+h3 { font-size: 1.2rem; font-weight: 500; font-style: italic; color: var(--text-secondary); }
+h4 { font-size: 1.05rem; font-weight: 600; color: var(--text-secondary); }
+p { margin: 1.2em 0; text-align: justify; hyphens: auto; }
+.markdown-body > p:first-of-type { font-size: 1.08em; color: var(--text-secondary); margin-bottom: 2em; }
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(139,94,60,0.3); transition: border-color 0.3s; }
+a:hover { border-bottom-color: var(--accent); }
+ul, ol { padding-left: 1.8em; margin: 1.2em 0; }
+li { margin: 0.5em 0; }
+blockquote { margin: 2em 0; padding: 1.4em 1.8em; border-left: 3px solid var(--gold); background: var(--accent-light); border-radius: 0 4px 4px 0; font-style: italic; font-size: 1.05em; color: var(--text-secondary); position: relative; }
+code { font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85em; background: var(--code-bg); padding: 0.15em 0.4em; border-radius: 3px; color: var(--accent); }
+pre { background: var(--code-bg); padding: 1.4em 1.6em; border-radius: 4px; overflow-x: auto; font-size: 0.88em; line-height: 1.55; border: 1px solid var(--border); }
+pre code { background: none; padding: 0; }
+table { width: 100%; border-collapse: collapse; margin: 2em 0; font-size: 0.9em; font-family: 'Noto Sans SC', sans-serif; }
+th, td { padding: 0.7em 1em; border: 1px solid var(--border); text-align: left; }
+th { background: var(--accent-light); font-weight: 500; color: var(--accent); text-transform: uppercase; font-size: 0.8em; letter-spacing: 0.08em; }
+img { max-width: 100%; height: auto; margin: 1.5em 0; display: block; border-radius: 2px; }
+figure { margin: 2.5em 0; text-align: center; }
+figcaption { font-family: 'Noto Sans SC', sans-serif; font-size: 0.85em; color: var(--text-secondary); margin-top: 0.8em; font-style: italic; letter-spacing: 0.02em; }
+hr { border: none; margin: 3em 0; text-align: center; }
+hr::before { content: '• • •'; color: var(--gold); letter-spacing: 1em; }
+#toc { position: fixed; top: 48px; right: 48px; width: 240px; max-height: 70vh; overflow-y: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 2px; padding: 24px 28px; font-size: 0.85em; font-family: 'Noto Sans SC', sans-serif; line-height: 1.6; box-shadow: 0 2px 16px rgba(44,41,38,0.06); z-index: 10; }
+.toc-title { font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.8em; margin-bottom: 14px; color: var(--text); }
+#toc a { display: block; color: var(--text-secondary); padding: 5px 0; border: none; transition: color 0.2s; }
+#toc a:hover { color: var(--accent); }
+#toc .toc-h3 { padding-left: 1em; font-size: 0.95em; }
+@media (max-width: 1200px) { #toc { display: none; } }
+@media (max-width: 860px) { .markdown-body { margin: 24px; padding: 40px 32px; } h1 { font-size: 1.9rem; } h2 { font-size: 1.3rem; } }
+@media (max-width: 480px) { .markdown-body { margin: 12px; padding: 28px 22px; } h1 { font-size: 1.7rem; } }
+@media print { body { background: white; } .markdown-body { box-shadow: none; margin: 0; max-width: none; } #toc { display: none; } }
