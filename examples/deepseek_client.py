@@ -251,33 +251,30 @@ class DeepSeekClient:
 
 
 def demo() -> None:
-    """快速演示客户端用法。"""
+    """交互式演示：用户输入问题，模型实时回答。"""
     client = DeepSeekClient()
 
-    print("=== 单轮对话 ===")
-    reply = client.chat("用一句话解释什么是 Agent。")
-    print(f"助手：{reply}\n")
+    print("=" * 40)
+    print("DeepSeek 交互式对话演示")
+    print(f"模型：{client.config.model}")
+    print("输入问题后按回车，空行退出")
+    print("=" * 40)
 
-    print("=== 多轮对话 ===")
-    client.reset_history()
-    reply1 = client.chat_with_history(
-        "Python 中 list 和 tuple 有什么区别？",
-        system_prompt="你是一个耐心的编程导师。",
-    )
-    print(f"助手：{reply1}\n")
+    while True:
+        try:
+            user_input = input("\n你：").strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\n再见！")
+            break
 
-    reply2 = client.chat_with_history("那它们的内存占用呢？")
-    print(f"助手：{reply2}\n")
+        if not user_input:
+            print("再见！")
+            break
 
-    print("=== 流式输出 ===")
-    print("助手：", end="", flush=True)
-    for part in client.chat_stream("讲一个关于程序员的短笑话。"):
-        print(part, end="", flush=True)
-    print("\n")
-
-    print("=== 保存历史 ===")
-    client.save_history_to_file("chat_history.json")
-    print("对话历史已保存到 chat_history.json")
+        print("助手：", end="", flush=True)
+        for part in client.chat_with_history_stream(user_input):
+            print(part, end="", flush=True)
+        print()
 
 
 if __name__ == "__main__":
